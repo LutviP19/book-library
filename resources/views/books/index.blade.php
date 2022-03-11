@@ -35,7 +35,7 @@
       <tr>
         <td>{{ ++$i }}</td>
         <td>{{ $item->title }}</td>
-        <td>{{ $item->author->name }}</td>
+        <td>{{ $item->author_id ? $item->author->name : '' }}</td>
         <td>{{ $item->description }}</td>
         <td>
           <form action="{{ route('books.destroy',$item->id) }}" method="POST">

@@ -48,11 +48,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'title' => 'required',
-            'author_id' => 'required',
-            'description' => 'required',
-        ]);
+        if (auth()->user()->role === 'Admin') {
+            request()->validate([
+                'title' => 'required',
+                'author_id' => 'required',
+                'description' => 'required',
+            ]);
+        } else {
+            request()->validate([
+                'title' => 'required',
+                'description' => 'required',
+            ]);
+        }
 
         Books::create($request->all());
 
@@ -96,11 +103,18 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'title' => 'required',
-            'author_id' => 'required',
-            'description' => 'required',
-        ]);
+        if (auth()->user()->role === 'Admin') {
+            request()->validate([
+                'title' => 'required',
+                'author_id' => 'required',
+                'description' => 'required',
+            ]);
+        } else {
+            request()->validate([
+                'title' => 'required',
+                'description' => 'required',
+            ]);
+        }
 
         $books = Books::find($id);
         $books->update($request->all());

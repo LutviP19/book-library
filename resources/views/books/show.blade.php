@@ -24,7 +24,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
         <strong>Author:</strong>
-        {{ $books->author->name }}
+        {{ $books->author_id ? $books->author->name : '' }}
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
