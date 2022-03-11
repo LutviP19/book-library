@@ -5,11 +5,11 @@
   <div class="row">
     <div class="col-lg-12 margin-tb mb-5">
       <div class="pull-left">
-        <h2>Books</h2>
+        <h2>Book Authors</h2>
       </div>
       <div class="pull-right">
-        @can('book-create')
-          <a class="btn btn-success" href="{{ route('books.create') }}"> Create New Book</a>
+        @can('book-author-create')
+          <a class="btn btn-success" href="{{ route('book-authors.create') }}"> Create New Author</a>
         @endcan
       </div>
     </div>
@@ -27,27 +27,23 @@
     <tr>
       <th>No</th>
       <th>Name</th>
-      <th>Author</th>
-      <th>Description</th>
       <th width="280px">Action</th>
     </tr>
     @forelse ($data as $item)
       <tr>
         <td>{{ ++$i }}</td>
-        <td>{{ $item->title }}</td>
-        <td>{{ $item->author_id }}</td>
-        <td>{{ $item->description }}</td>
+        <td>{{ $item->name }}</td>
         <td>
-          <form action="{{ route('books.destroy',$item->id) }}" method="POST">
-            <a class="btn btn-info" href="{{ route('books.show',$item->id) }}">Show</a>
-            @can('book-edit')
-              <a class="btn btn-primary" href="{{ route('books.edit',$item->id) }}">Edit</a>
+          <form action="{{ route('book-authors.destroy',$item->id) }}" method="POST">
+            <a class="btn btn-info" href="{{ route('book-authors.show',$item->id) }}">Show</a>
+            @can('book-author-edit')
+              <a class="btn btn-primary" href="{{ route('book-authors.edit',$item->id) }}">Edit</a>
             @endcan
 
 
             @csrf
             @method('DELETE')
-            @can('book-delete')
+            @can('book-author-delete')
               <button type="submit" class="btn btn-danger">Delete</button>
             @endcan
           </form>
@@ -55,7 +51,7 @@
       </tr>
     @empty
       <tr>
-        <td colspan="5">Data is empty</td>
+        <td colspan="2">Data is empty</td>
       </tr>
     @endforelse
   </table>

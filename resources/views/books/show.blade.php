@@ -18,19 +18,19 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
         <strong>Name:</strong>
-        {{ $book->name }}
+        {{ $books->title }}
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
         <strong>Author:</strong>
-        {{ $book->author_id }}
+        {{ $books->author->name }}
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
         <strong>Details:</strong>
-        {{ $book->detail }}
+        {{ $books->description }}
       </div>
     </div>
   </div>

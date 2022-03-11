@@ -36,7 +36,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $authors = BookAuthor::pluck('name', 'name')->all();
+        $authors = BookAuthor::all();
         return view('books.create', compact('authors'));
     }
 
@@ -63,23 +63,28 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param $id
      * @param \App\Models\Books $books
      * @return \Illuminate\Http\Response
      */
-    public function show(Books $books)
+    public function show($id, Books $books)
     {
+        $books = Books::find($id);
         return view('books.show', compact('books'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param $id
      * @param \App\Models\Books $books
      * @return \Illuminate\Http\Response
      */
-    public function edit(Books $books)
+    public function edit($id, Books $books)
     {
-        return view('books.edit', compact('books'));
+        $books = Books::find($id);
+        $authors = BookAuthor::all();
+        return view('books.edit', compact('books', 'authors'));
     }
 
     /**
@@ -89,7 +94,7 @@ class BookController extends Controller
      * @param \App\Models\Books $books
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Books $books)
+    public function update(Request $request, $id)
     {
         request()->validate([
             'title' => 'required',
@@ -97,23 +102,25 @@ class BookController extends Controller
             'description' => 'required',
         ]);
 
+        $books = Books::find($id);
         $books->update($request->all());
 
-        return redirect()->route('products.index')
+        return redirect()->route('books.index')
             ->with('success', 'Book updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param $id
      * @param \App\Models\Books $books
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Books $books)
+    public function destroy($id, Books $books)
     {
-        $books->delete();
+        $books::find($id)->delete();
 
-        return redirect()->route('products.index')
+        return redirect()->route('books.index')
             ->with('success', 'Book deleted successfully');
     }
 }
